@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
 const int MAX_INPUT_SIZE = 256;
 void print_welcome_message();
 void get_name();
@@ -24,8 +26,28 @@ void get_name(){
 }
 
 void begin_adventure(){
-    char input[MAX_INPUT_SIZE];
-    int planet = rand() % 10;
+    char input[2];
+    printf("Should I randomly choose a planet to go to? (Y or N)");
+    fgets(input, sizeof(input), stdin);
+    char no[] = "N";
+    char yes[] = "Y";
+    
+    
+    int check_yes;
+    int check_no;
+    check_yes = strcmp(yes, input);
+    check_no = strcmp(no, input);
 
-    printf("Randomly Chose Planet number%d\n", planet);
+    
+    if(check_no == 0){
+        printf("You said No\n");
+        
+    }
+    else if(check_yes == 0){
+        printf("You said Yes\n");
+    }
+    else{
+        printf("Please Enter Valid Input\n");
+        begin_adventure();
+    }
 }
