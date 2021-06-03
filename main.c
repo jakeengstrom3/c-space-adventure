@@ -1,15 +1,35 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include<json-c/json.h>
+
 const int MAX_INPUT_SIZE = 256;
 void print_welcome_message();
 void get_name();
 void begin_adventure();
+void get_user_planet();
+void get_random_planet();
 
 int main(){
-    print_welcome_message();
-    get_name();
-    begin_adventure();
+    //print_welcome_message();
+    //get_name();
+    //begin_adventure();
+
+    FILE *fp;
+    char buffer[8192];
+
+    struct json_object *parsed_json;
+    struct json_object *planets;
+
+    fp = fopen("planetarySystem.json", "r");
+    fread(buffer, 8192, 1, fp);
+    fclose(fp);
+
+    parsed_json = json_tokener_parse(buffer);
+    json_object_object_get_ex(parsed_json, "planets", &planets);
+    printf("%ld", json_object_array_length(planets));
+
+
     return 0;
 }
 
@@ -41,13 +61,30 @@ void begin_adventure(){
     
     if(check_no == 0){
         printf("You said No\n");
-        
+        get_user_planet();
+
     }
     else if(check_yes == 0){
         printf("You said Yes\n");
+        get_random_planet();
     }
     else{
         printf("Please Enter Valid Input\n");
         begin_adventure();
     }
 }
+
+void get_user_planet(){
+    printf("Please Enter the name of the planet you want to go to\n");
+
+    char input[MAX_INPUT_SIZE];
+    fgets(input, sizeof(input), stdin);
+    
+    
+    
+}
+
+void get_random_planet(){
+    
+}
+
