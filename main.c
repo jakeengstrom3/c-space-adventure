@@ -58,50 +58,20 @@ void begin_adventure(){
 void get_user_planet(){
     printf("Please Enter the name of the planet you want to go to\n");
 
-    char input[7];
-    
+    char input[MAX_INPUT_SIZE];
     scanf("%s", input);
 
-    if(strcmp(input, "Mercury") == 0){
-        go_to_planet(0);
-    }
-    else if(strcmp(input, "Venus") == 0){
+    char planets[9][8] = {"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
 
-        go_to_planet(1);
+    for(int i = 0; i < sizeof(planets); i++){
+        if(strcmp(input, planets[i]) == 0){
+            go_to_planet(i);
+            return;
+        }
     }
-    else if(strcmp(input, "Earth") == 0){
 
-        go_to_planet(2);
-    }
-    else if(strcmp(input, "Mars") == 0){
-     
-        go_to_planet(3);
-    }
-    else if(strcmp(input, "Jupiter") == 0){
-      
-        go_to_planet(4);
-    }
-    else if(strcmp(input, "Saturn") == 0){
-        
-        go_to_planet(5);
-    }
-    else if(strcmp(input, "Uranus") == 0){
-        
-        go_to_planet(6);
-    }
-    else if(strcmp(input, "Neptune") == 0){
-    
-        go_to_planet(7);
-    }
-    else if(strcmp(input, "Pluto") == 0){
-        
-        go_to_planet(8);
-    }
-    else{
-        printf("Please enter a valid planet name!\n");
+    printf("Please enter a valid planet name!\n");
         get_user_planet();
-    }
-    
 }
 
 void get_random_planet(){
@@ -137,7 +107,7 @@ void go_to_planet(int planet_num){
 }
 
 void continue_adventure(){
-    char input[4];
+    char input[MAX_INPUT_SIZE];
     printf("Do you wish to continue your adventrue? (Y or N)");
     
     scanf("%s", input);
