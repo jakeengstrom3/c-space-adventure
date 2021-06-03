@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include<json-c/json.h>
+#include <json-c/json.h>
+#include <time.h>
+#include <stdlib.h>
 
 const int MAX_INPUT_SIZE = 256;
 void print_welcome_message();
@@ -10,6 +12,7 @@ void begin_adventure();
 void get_user_planet();
 void get_random_planet();
 void go_to_planet();
+void continue_adventure();
 
 int main(){
     print_welcome_message();
@@ -113,7 +116,8 @@ void get_user_planet(){
 }
 
 void get_random_planet(){
-    
+    srand(time(NULL));
+    go_to_planet(rand() % 9);
 }
 
 void go_to_planet(int planet_num){
@@ -138,7 +142,36 @@ void go_to_planet(int planet_num){
     json_object_object_get_ex(planet, "name", &name);
     json_object_object_get_ex(planet, "description", &description);
     
-    printf("Planet %d: %s\n", planet_num, json_object_get_string(name));
-    printf("Description: %s\n", json_object_get_string(description));
+    printf("Travelling to  %s...\n", json_object_get_string(name));
+    printf("Description: %s\n\n", json_object_get_string(description));
+    continue_adventure();
 }
 
+void continue_adventure(){
+    char input[4];
+    printf("Do you wish to continue your adventrue? (Y or N)");
+    
+    scanf("%s", input);
+    
+    char no[] = "N";
+    char yes[] = "Y";
+    
+    
+    int check_yes;
+    int check_no;
+    check_yes = strcmp(yes, input);
+    check_no = strcmp(no, input);
+
+    
+    if(check_no == 0){
+        printf("Okay, Goodbye!\n");
+    }
+    else if(check_yes == 0){
+        printf("Okey, lets continue the adventue!\n");
+        begin_adventure();
+    }
+    else{
+        printf("Please Enter Valid Input\n");
+        continue_adventure();
+    }
+}
