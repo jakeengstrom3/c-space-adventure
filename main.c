@@ -35,27 +35,17 @@ void get_name(){
 }
 
 void begin_adventure(){
-    char input[4];
+    char input[MAX_INPUT_SIZE];
     printf("Should I randomly choose a planet to go to? (Y or N)");
     
     scanf("%s", input);
     
-    char no[] = "N";
-    char yes[] = "Y";
-    
-    
-    int check_yes;
-    int check_no;
-    check_yes = strcmp(yes, input);
-    check_no = strcmp(no, input);
-
-    
-    if(check_no == 0){
+    if(strcmp("N", input) == 0){
         printf("You said No\n");
         get_user_planet();
 
     }
-    else if(check_yes == 0){
+    else if(strcmp("Y", input) == 0){
         printf("You said Yes\n");
         get_random_planet();
     }
@@ -73,46 +63,45 @@ void get_user_planet(){
     scanf("%s", input);
 
     if(strcmp(input, "Mercury") == 0){
-        printf("Going to planet 0\n");
         go_to_planet(0);
     }
     else if(strcmp(input, "Venus") == 0){
-        printf("Going to planet 1\n");
+
         go_to_planet(1);
     }
     else if(strcmp(input, "Earth") == 0){
-        printf("Going to planet 2\n");
+
         go_to_planet(2);
     }
     else if(strcmp(input, "Mars") == 0){
-        printf("Going to planet 3\n");
+     
         go_to_planet(3);
     }
     else if(strcmp(input, "Jupiter") == 0){
-        printf("Going to planet 4\n");
+      
         go_to_planet(4);
     }
     else if(strcmp(input, "Saturn") == 0){
-        printf("Going to planet 5\n");
+        
         go_to_planet(5);
     }
     else if(strcmp(input, "Uranus") == 0){
-        printf("Going to planet 6\n");
+        
         go_to_planet(6);
     }
     else if(strcmp(input, "Neptune") == 0){
-        printf("Going to planet 7\n");
+    
         go_to_planet(7);
     }
     else if(strcmp(input, "Pluto") == 0){
-        printf("Going to planet 8\n");
+        
         go_to_planet(8);
     }
     else{
         printf("Please enter a valid planet name!\n");
         get_user_planet();
     }
-
+    
 }
 
 void get_random_planet(){
@@ -142,7 +131,7 @@ void go_to_planet(int planet_num){
     json_object_object_get_ex(planet, "name", &name);
     json_object_object_get_ex(planet, "description", &description);
     
-    printf("Travelling to  %s...\n", json_object_get_string(name));
+    printf("Travelling to %s...\n", json_object_get_string(name));
     printf("Description: %s\n\n", json_object_get_string(description));
     continue_adventure();
 }
@@ -152,22 +141,12 @@ void continue_adventure(){
     printf("Do you wish to continue your adventrue? (Y or N)");
     
     scanf("%s", input);
-    
-    char no[] = "N";
-    char yes[] = "Y";
-    
-    
-    int check_yes;
-    int check_no;
-    check_yes = strcmp(yes, input);
-    check_no = strcmp(no, input);
 
-    
-    if(check_no == 0){
+    if(strcmp("N", input) == 0){
         printf("Okay, Goodbye!\n");
     }
-    else if(check_yes == 0){
-        printf("Okey, lets continue the adventue!\n");
+    else if(strcmp("Y", input) == 0){
+        printf("Okay, lets continue the adventue!\n");
         begin_adventure();
     }
     else{
